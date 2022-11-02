@@ -59,5 +59,16 @@ object app {
     Employees = {Employees.take(i):+newSalary}++Employees.drop(i)
     for (value<- Employees)  println(f"$value%.3f")
 
-   }
+    //3g
+    var middleSalMin = 90
+    var middleSalMax = 130
+    println("индексы сотрудников уровня middle: ")
+    for (i <- 0 until Employees.size) if ((Employees(i) <= middleSalMax)&&(Employees(i) >= middleSalMin)) print(f"$i ")
+
+    //3h
+    println()
+    println("Проиндексированные на 7% оклады:")
+    Employees = Employees.map(value=>value*1.07)
+    for (value<- Employees)  println(f"$value%.3f")
+  }
 }
