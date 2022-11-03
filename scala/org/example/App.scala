@@ -1,4 +1,5 @@
 import scala.collection.mutable.ListBuffer
+import scalaj.http
 object app {
   def main(args: Array[String]): Unit = {
     //3a
@@ -70,5 +71,41 @@ object app {
     println("Проиндексированные на 7% оклады:")
     Employees = Employees.map(value=>value*1.07)
     for (value<- Employees)  println(f"$value%.3f")
+
+    //3i
+    val avgSalaryByMarket = 175
+    var middleSalary = List[Double]()
+    for (i<- Employees)
+      {
+        if((i>=100)&&(i<200))
+          {
+            middleSalary = (i+:middleSalary)
+          }
+      }
+      print(middleSalary)
+
+    val avgMiddleSalary = middleSalary.sum/middleSalary.size
+    println(avgMiddleSalary)
+
+    var avg_middle_salary_diff = 1 - avgMiddleSalary/avgSalaryByMarket
+    avg_middle_salary_diff = "%.2f".format(avg_middle_salary_diff).replace(",",".").toDouble
+    println(avg_middle_salary_diff)
+
+    var new_middle_salary = List[Double]()
+    for (i <- middleSalary)
+      {
+        new_middle_salary = (i+i*avg_middle_salary_diff)+:new_middle_salary
+      }
+    println(new_middle_salary)
+
+    //3k
+    var Employees2 = scala.collection.mutable.Map[String,Double]("fio_a" -> 100.0, "fio_b" -> 150.0, "fio_c" -> 200.0, "fio_d" -> 80.0, "fio_e" -> 120.0, "fio_f" -> 75.0, "fio_g"->200.0)
+
+    //3l
+    var maxSalary = Employees2.values.max
+    println(f"Максимальная зарплата у: ${Employees2.filter((i)=> i._2==maxSalary).keys}")
+    var minSalary = Employees2.values.min
+    println(f"Минимальная зарплата у: ${Employees2.filter((i) => i._2 == minSalary).keys}")
+
   }
 }
